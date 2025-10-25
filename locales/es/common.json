@@ -1,0 +1,18 @@
+{
+  "products": "Productos",
+  "login": {
+    "title": "Iniciar Sesión",
+    "subtitle": "Ingresa tus credenciales para acceder",
+    "email": "Email",
+    "emailPlaceholder": "tu@email.com",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Tu contraseña",
+    "submit": "Iniciar Sesión",
+    "loading": "Iniciando sesión..."
+  },
+  "header":{
+    "title": "Tablero",
+    "logout": "Cerrar sesión",
+    "welcome": "Bienvenido"
+  }
+}
