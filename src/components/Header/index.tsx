@@ -1,11 +1,12 @@
 'use client';
 
 import { useAuth } from "providers/AuthProvider";
-import { useTranslation } from "../hooks/useTranslation";
+import { useTranslation } from "../../hooks/useTranslation";
 import { usePathname } from "next/navigation";
 import { memo, } from "react"
 import { COMMON_NAMESPACE } from "utils/constants";
 import { ROUTES } from "utils/pageRoutes";
+import { className as Styles } from "./constants";
 
 function HeaderComponent() {
 
@@ -23,22 +24,22 @@ function HeaderComponent() {
     if (isLoginPage) return null;
 
     return (
-        <header className="bg-white shadow-sm border-b">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-16">
-                    <div className="flex items-center">
-                        <h1 className="text-xl font-semibold text-gray-900">
+        <header className={Styles.header}>
+            <div className={Styles.container}>
+                <div className={Styles.wrapper}>
+                    <div className={Styles.titleSection}>
+                        <h1 className={Styles.title}>
                             {t("header.title")}
                         </h1>
                     </div>
 
-                    <div className="flex items-center space-x-4">
-                        <div className="text-sm text-gray-700">
-                            {t("header.welcome")}, <span className="font-medium">{user?.name}</span>
+                    <div className={Styles.actions}>
+                        <div className={Styles.welcome}>
+                            {t("header.welcome")}, <span className={Styles.username}>{user?.name}</span>
                         </div>
                         <button
                             onClick={handleLogout}
-                            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                            className={Styles.logoutButton}
                         >
                             {t("header.logout")}
                         </button>
@@ -49,6 +50,6 @@ function HeaderComponent() {
     )
 }
 
-export default memo(HeaderComponent)
-
 HeaderComponent.displayName = "Header"
+
+export default memo(HeaderComponent)

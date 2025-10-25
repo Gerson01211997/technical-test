@@ -97,7 +97,7 @@ function LoginForm() {
           </Button>
 
           <div className="text-center text-sm text-gray-600">
-            <p>{t('login.credentials')}</p>
+            <p>{t('login.subtitle')}</p>
           </div>
         </form>
       </div>
@@ -105,6 +105,6 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
-
 LoginForm.displayName = "loginForm"
+
+export default LoginForm;

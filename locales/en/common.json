@@ -1,26 +1,51 @@
 {
-  "welcome": "Welcome to Next.js",
-  "getStarted": "Get started by editing",
-  "saveChanges": "Save and see your changes instantly",
-  "deploy": "Deploy now",
-  "readDocs": "Read our docs",
-  "learn": "Learn",
-  "examples": "Examples",
-  "goToNextjs": "Go to nextjs.org →",
+  "products": "Products",
   "login": {
-    "title": "Sign In",
+    "title": "Login",
     "subtitle": "Enter your credentials to access",
     "email": "Email",
     "emailPlaceholder": "your@email.com",
     "password": "Password",
     "passwordPlaceholder": "Your password",
-    "submit": "Sign In",
-    "loading": "Signing in...",
-    "credentials": "Credentials: test@test.com / 1234"
+    "submit": "Login",
+    "loading": "Logging in..."
   },
   "header": {
     "title": "Dashboard",
-    "logout": "Logout",
+    "logout": "Log out",
     "welcome": "Welcome"
+  },
+  "list": {
+    "title": "Product list",
+    "description": "Virtualized list with 2000 items",
+    "justiication": {
+      "title": "Why use virtualization?",
+      "paragraph_1": {
+        "title": "Performance:",
+        "description": "Only renders visible elements, significantly improving performance"
+      },
+      "paragraph_2": {
+        "title": "Memory:",
+        "description": "Reduces memory usage by not keeping all elements in the DOM"
+      },
+      "paragraph_3": {
+        "title": "Scalability:",
+        "description": "Allows handling thousands of items without performance issues"
+      },
+      "paragraph_4": {
+        "title": "UX:",
+        "description": "Keeps the user experience smooth even with large amounts of data"
+      }
+    },
+    "viewItem": {
+      "button": "View",
+      "modal": {
+        "title": "Product"
+      }
+    },
+    "fetchStatus": {
+      "loading": "Loading list...",
+      "error": "Error loading list"
+    }
   }
 }

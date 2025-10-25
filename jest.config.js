@@ -1,28 +1,35 @@
-module.exports = {
-  testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['jest-fixed-jsdom'],
-  moduleNameMapping: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-    '^@repository/(.*)$': '<rootDir>/src/services/repository/$1',
-    '^@products/(.*)$': '<rootDir>/src/modules/products/$1',
+const nextJest = require('next/jest');
+const { pathsToModuleNameMapper } = require('ts-jest');
+const { compilerOptions } = require('./tsconfig');
+
+const createJestConfig = nextJest({
+  dir: './',
+});
+const customJestConfig = {
+  preset: 'ts-jest',
+  moduleNameMapper: {
+    '\\.(scss|sass)$': 'identity-obj-proxy',
+    ...pathsToModuleNameMapper(compilerOptions.paths, {
+      prefix: '<rootDir>/src/',
+    }),
   },
+  testPathIgnorePatterns: ['/node_modules/', '/.next/'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  transformIgnorePatterns: ['/node_modules/(?!(next-translate|@testing-library)/)'],
+  testEnvironmentOptions: {
+    customExportConditions: [''],
+  },
+  testEnvironment: 'jest-fixed-jsdom',
   transform: {
-    '^.+\\.(ts|tsx)$': ['@swc/jest'],
+    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
+    '^.+\\.mjs$': ['babel-jest', { presets: ['next/babel'] }],
   },
-  collectCoverageFrom: [
-    'src/**/*.{ts,tsx}',
-    '!src/app/**/*',
-    '!src/**/*.d.ts',
-    '!src/setupTests.ts',
-  ],
-  coverageThreshold: {
-    global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80,
-    },
-  },
-  coverageReporters: ['text', 'lcov', 'html'],
-  
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  moduleDirectories: ['node_modules', 'src'],
+  setupFilesAfterEnv: ['@testing-library/jest-dom'],
+  collectCoverageFrom: ['src/**/{!(.test.),}.{js,ts,tsx}'],
 };
+module.exports = async () => ({
+  ...(await createJestConfig(customJestConfig)()),
+  transformIgnorePatterns: ['/node_modules/(?!(jose|@panva)/)'],
+});

@@ -1,4 +1,4 @@
-import { ListItem } from "services/repository/hooks/list/__mocks__";
+import { ListItem } from "@repository/hooks/list/__mocks__";
 
 export interface VirtualizedListProps {
     items: ListItem[];

@@ -2,8 +2,11 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useRef } from 'react';
 import ListItemComponent from './components/rows';
 import { VirtualizedListProps } from './types';
+import { useTranslation } from 'hooks/useTranslation';
+import { className as Styles } from './constants';
 
 function VirtualizedList({ items, isLoading, isError }: Readonly<VirtualizedListProps>) {
+  const { t } = useTranslation();
   const parentRef = useRef<HTMLDivElement>(null);
 
   const virtualizer = useVirtualizer({
@@ -17,25 +20,25 @@ function VirtualizedList({ items, isLoading, isError }: Readonly<VirtualizedList
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-lg text-gray-600">Cargando lista...</div>
+      <div className={Styles.loadingContainer}>
+        <div className={Styles.loadingText}>{t("list.fetchStatus.loading")}</div>
       </div>
     );
   }
 
   if (isError) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-lg text-red-600">Error al cargar la lista</div>
+      <div className={Styles.errorContainer}>
+        <div className={Styles.errorText}>{t("list.fetchStatus.error")}</div>
       </div>
     );
   }
 
   return (
-    <div className="w-full">
+    <div className={Styles.container}>
       <div
         ref={parentRef}
-        className="h-96 overflow-auto border border-gray-200 rounded-lg"
+        className={Styles.scrollContainer}
         style={{
           contain: 'strict',
         }}
@@ -68,6 +71,6 @@ function VirtualizedList({ items, isLoading, isError }: Readonly<VirtualizedList
   );
 }
 
-export default VirtualizedList;
-
 VirtualizedList.displayName = "VirtualizedList-Component"
+
+export default VirtualizedList;

@@ -1,4 +1,4 @@
-import { User } from "services/repository/hooks/auth/types";
+import { User } from "@repository/hooks/auth/types";
 
 export interface LoginFormData {
     email: string;

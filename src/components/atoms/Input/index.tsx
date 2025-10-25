@@ -1,14 +1,8 @@
-import React from 'react';
+import React, { memo, useMemo } from 'react';
+import { className as Styles } from './constants';
+import { InputProps } from './types';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    label?: string;
-    error?: string;
-    helperText?: string;
-    startIcon?: React.ReactNode;
-    endIcon?: React.ReactNode;
-}
-
-export default function Input({
+function InputComponent({
     label,
     error,
     helperText,
@@ -17,44 +11,53 @@ export default function Input({
     className = '',
     ...props
 }: InputProps) {
-    const baseClasses = 'appearance-none relative block w-full px-3 py-2 border placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm';
-    const errorClasses = error ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300';
-    const iconClasses = startIcon ? 'pl-10' : endIcon ? 'pr-10' : '';
+    const inputClasses = useMemo(() => {
+        const stateClass = error ? Styles.error : Styles.normal;
+        const iconClass = startIcon
+            ? Styles.iconStart
+            : endIcon
+                ? Styles.iconEnd
+                : '';
+
+        return `${Styles.base} ${stateClass} ${iconClass} ${className}`.trim();
+    }, [error, startIcon, endIcon, className]);
 
     return (
-        <div className="space-y-1">
+        <div className={Styles.wrapper}>
             {label && (
-                <label htmlFor={props.id} className="block text-sm font-medium text-gray-700">
+                <label htmlFor={props.id} className={Styles.label}>
                     {label}
                 </label>
             )}
 
-            <div className="relative">
+            <div className={Styles.inputContainer}>
                 {startIcon && (
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <div className={`${Styles.iconWrapper} ${Styles.iconStartWrapper}`}>
                         {startIcon}
                     </div>
                 )}
 
                 <input
-                    className={`${baseClasses} ${errorClasses} ${iconClasses} ${className}`}
                     {...props}
+                    className={inputClasses}
                 />
 
                 {endIcon && (
-                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                    <div className={`${Styles.iconWrapper} ${Styles.iconEndWrapper}`}>
                         {endIcon}
                     </div>
                 )}
             </div>
 
-            {error && (
-                <p className="text-sm text-red-600">{error}</p>
-            )}
-
-            {helperText && !error && (
-                <p className="text-sm text-gray-500">{helperText}</p>
-            )}
+            {error ? (
+                <p className={Styles.errorMessage}>{error}</p>
+            ) : helperText ? (
+                <p className={Styles.helperText}>{helperText}</p>
+            ) : null}
         </div>
     );
 }
+
+InputComponent.displayName = "input-component"
+
+export default memo(InputComponent);

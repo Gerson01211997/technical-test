@@ -3,6 +3,8 @@ import type React from 'react';
 import { memo, useState } from 'react';
 import type { ProductViewProps } from './types';
 import { useTranslation } from 'hooks/useTranslation';
+import Button from 'components/atoms/Button';
+import { className as Styles } from './constants';
 
 const ProductView: React.FC<ProductViewProps> = ({ price, name }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,18 +12,18 @@ const ProductView: React.FC<ProductViewProps> = ({ price, name }) => {
   const { t } = useTranslation()
 
   return (
-    <div>
-      <button
+    <div className={Styles.container}>
+      <Button
         type="button"
         onClick={() => setIsModalOpen(true)}
-        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+        className={Styles.button}
         data-testid="view-product-button"
       >
-        Ver
-      </button>
+        {t('list.viewItem.button')}
+      </Button>
 
-      <ProductModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={t('common')}>
-        <div className="prose text-gray-900">
+      <ProductModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={t('list.viewItem.modal.title')}>
+        <div className={Styles.modalContent}>
           <p>{name}</p>
           <p>{price}</p>
         </div>

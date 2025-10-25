@@ -1,15 +1,10 @@
-import React from 'react';
+'use client';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: 'primary' | 'secondary' | 'danger' | 'outline';
-    size?: 'sm' | 'md' | 'lg';
-    loading?: boolean;
-    startIcon?: React.ReactNode;
-    endIcon?: React.ReactNode;
-    fullWidth?: boolean;
-}
+import React, { useMemo } from 'react';
+import { className as Styles } from './constants';
+import { ButtonProps } from './types';
 
-export default function Button({
+const Button = React.memo(function Button({
     variant = 'primary',
     size = 'md',
     loading = false,
@@ -21,46 +16,77 @@ export default function Button({
     disabled,
     ...props
 }: ButtonProps) {
-    const baseClasses = 'inline-flex items-center justify-center font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors';
+    const computedClassName = useMemo(() => {
+        const widthClasses = fullWidth ? Styles.fullWidth : '';
+        const disabledClasses = disabled || loading ? Styles.disabled : '';
 
-    const variantClasses = {
-        primary: 'bg-indigo-600 hover:bg-indigo-700 text-white focus:ring-indigo-500',
-        secondary: 'bg-gray-600 hover:bg-gray-700 text-white focus:ring-gray-500',
-        danger: 'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500',
-        outline: 'border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 focus:ring-indigo-500'
-    };
+        return [
+            Styles.base,
+            Styles.variants[variant],
+            Styles.sizes[size],
+            widthClasses,
+            disabledClasses,
+            className,
+        ]
+            .filter(Boolean)
+            .join(' ');
+    }, [variant, size, loading, fullWidth, disabled, className]);
 
-    const sizeClasses = {
-        sm: 'px-3 py-1.5 text-sm',
-        md: 'px-4 py-2 text-sm',
-        lg: 'px-6 py-3 text-base'
-    };
+    const StartIcon = useMemo(
+        () =>
+            !loading && startIcon ? (
+                <span className={Styles.iconContainer.start}>{startIcon}</span>
+            ) : null,
+        [loading, startIcon]
+    );
 
-    const widthClasses = fullWidth ? 'w-full' : '';
-    const disabledClasses = (disabled || loading) ? 'opacity-50 cursor-not-allowed' : '';
+    const EndIcon = useMemo(
+        () =>
+            !loading && endIcon ? (
+                <span className={Styles.iconContainer.end}>{endIcon}</span>
+            ) : null,
+        [loading, endIcon]
+    );
+
+    const LoadingIcon = useMemo(
+        () =>
+            loading ? (
+                <svg className={Styles.loadingIcon} fill="none" viewBox="0 0 24 24">
+                    <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                    />
+                    <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 
+              5.373 0 12h4zm2 5.291A7.962 7.962 0 
+              014 12H0c0 3.042 1.135 5.824 
+              3 7.938l3-2.647z"
+                    />
+                </svg>
+            ) : null,
+        [loading]
+    );
 
     return (
         <button
-            className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${widthClasses} ${disabledClasses} ${className}`}
+            className={computedClassName}
             disabled={disabled || loading}
             {...props}
         >
-            {loading && (
-                <svg className="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-            )}
-
-            {!loading && startIcon && (
-                <span className="mr-2">{startIcon}</span>
-            )}
-
+            {LoadingIcon}
+            {StartIcon}
             {children}
-
-            {!loading && endIcon && (
-                <span className="ml-2">{endIcon}</span>
-            )}
+            {EndIcon}
         </button>
     );
-}
+});
+
+Button.displayName = 'Button';
+
+export default Button;

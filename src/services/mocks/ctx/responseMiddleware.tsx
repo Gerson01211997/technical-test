@@ -3,6 +3,8 @@ import { delay, HttpResponse } from 'msw';
 import { RESPONSE_STATUSES } from './constants';
 import type { MiddlewareInterface } from './types';
 
+const TEST_TOKEN = 'fake-token-test-123456789';
+
 export async function responseMiddleware<T>({ params, data, req }: MiddlewareInterface<T>) {
   const { resolver, isError, isLoading, delayTime, status } = params;
 
@@ -18,16 +20,22 @@ export async function responseMiddleware<T>({ params, data, req }: MiddlewareInt
   }
 
   if (!!resolver && !!req) {
-    return resolver(req);
+    return resolver({
+      request: req,
+      requestId: '',
+    });
   }
 
   await delay(delayTime ?? 0);
 
-  return new HttpResponse(JSON.stringify(data), {
+  const response = new HttpResponse(JSON.stringify(data), {
     status: status ?? RESPONSE_STATUSES.OK,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer test-token',
     },
   });
+
+  response.headers.set('Set-Cookie', `auth_token=${TEST_TOKEN}; Path=/; HttpOnly; SameSite=Strict`);
+
+  return response;
 }

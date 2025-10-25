@@ -10,9 +10,42 @@
     "submit": "Iniciar Sesión",
     "loading": "Iniciando sesión..."
   },
-  "header":{
+  "header": {
     "title": "Tablero",
     "logout": "Cerrar sesión",
     "welcome": "Bienvenido"
+  },
+  "list": {
+    "title": "Lista de productos",
+    "description": "Lista virtualizada con 2000 elementos",
+    "justiication":{
+      "title":"¿Por qué usar virtualización?",
+      "paragraph_1":{
+        "title":"Rendimiento:",
+        "description":"Solo renderiza los elementos visibles, mejorando significativamente el rendimiento"
+      },
+      "paragraph_2":{
+        "title":"Memoria:",
+        "description":"Reduce el uso de memoria al no mantener todos los elementos en el DOM"
+      },
+      "paragraph_3":{
+        "title":"Escalabilidad:",
+        "description":"Permite manejar listas de miles de elementos sin problemas de rendimiento"
+      },
+      "paragraph_4":{
+        "title":"UX:",
+        "description":"Mantiene la experiencia de usuario fluida incluso con grandes cantidades de datos"
+      }
+    },
+    "viewItem": {
+      "button": "Ver",
+      "modal": {
+        "title": "Producto"
+      }
+    },
+    "fetchStatus": {
+      "loading": "Cargando lista...",
+      "error": "Error al cargar la lista"
+    }
   }
 }
