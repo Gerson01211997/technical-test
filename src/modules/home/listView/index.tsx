@@ -21,7 +21,7 @@ function VirtualizedList({ items, isLoading, isError }: Readonly<VirtualizedList
   if (isLoading) {
     return (
       <div className={Styles.loadingContainer}>
-        <div className={Styles.loadingText}>{t("list.fetchStatus.loading")}</div>
+        <div className={Styles.loadingText}>{t('list.fetchStatus.loading')}</div>
       </div>
     );
   }
@@ -29,7 +29,7 @@ function VirtualizedList({ items, isLoading, isError }: Readonly<VirtualizedList
   if (isError) {
     return (
       <div className={Styles.errorContainer}>
-        <div className={Styles.errorText}>{t("list.fetchStatus.error")}</div>
+        <div className={Styles.errorText}>{t('list.fetchStatus.error')}</div>
       </div>
     );
   }
@@ -71,6 +71,6 @@ function VirtualizedList({ items, isLoading, isError }: Readonly<VirtualizedList
   );
 }
 
-VirtualizedList.displayName = "VirtualizedList-Component"
+VirtualizedList.displayName = 'VirtualizedList-Component';
 
 export default VirtualizedList;

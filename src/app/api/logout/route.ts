@@ -18,7 +18,7 @@ export async function POST() {
   } catch (err) {
     return NextResponse.json(
       { success: false, message: 'Error al cerrar sesión' },
-      { status: RESPONSE_STATUSES.INTERNAL_SERVER_ERROR }
+      { status: RESPONSE_STATUSES.INTERNAL_SERVER_ERROR },
     );
   }
 }

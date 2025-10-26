@@ -8,26 +8,26 @@ import { environment } from 'services/config/environment';
 const { POST } = mockMethods;
 
 const {
-    remotes: { baseUrl },
+  remotes: { baseUrl },
 } = environment;
 
 interface LogoutResponse {
-    success: boolean;
+  success: boolean;
 }
 
 const logoutResponse: LogoutResponse = {
-    success: true,
+  success: true,
 };
 
 export const logoutMock = ({ data, ...params }: MockRequest<Partial<LogoutResponse>> = {}) => {
-    return POST({
-        path: `${baseUrl}${ENDPOINTS.AUTH.LOGOUT}`,
-        resolver: ({ request }) => {
-            return responseMiddleware({
-                params,
-                data: logoutResponse,
-                req: request,
-            });
-        },
-    });
+  return POST({
+    path: `${baseUrl}${ENDPOINTS.AUTH.LOGOUT}`,
+    resolver: ({ request }) => {
+      return responseMiddleware({
+        params,
+        data: logoutResponse,
+        req: request,
+      });
+    },
+  });
 };

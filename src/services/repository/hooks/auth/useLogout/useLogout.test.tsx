@@ -5,59 +5,59 @@ import { logoutMock } from './handler.msw';
 import useLogout from '.';
 
 const queryClient = new QueryClient({
-    defaultOptions: {
-        mutations: {
-            retry: false,
-        },
-        queries: {
-            retry: false,
-        },
+  defaultOptions: {
+    mutations: {
+      retry: false,
     },
+    queries: {
+      retry: false,
+    },
+  },
 });
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 );
 
 describe('useLogout', () => {
-    beforeAll(() => {
-        mockServer.listen();
+  beforeAll(() => {
+    mockServer.listen();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    mockServer.reset();
+  });
+
+  afterAll(() => {
+    mockServer.close();
+  });
+
+  it('When logout is successful', async () => {
+    mockServer.use(logoutMock());
+
+    const { result } = renderHook(() => useLogout(), {
+      wrapper,
     });
 
-    afterEach(() => {
-        jest.clearAllMocks();
-        mockServer.reset();
+    result.current.mutate(undefined);
+
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBeTruthy();
+    });
+  });
+
+  it('When logout fails', async () => {
+    mockServer.use(logoutMock({ isError: true }));
+
+    const { result } = renderHook(() => useLogout(), {
+      wrapper,
     });
 
-    afterAll(() => {
-        mockServer.close();
+    result.current.mutate(undefined);
+
+    await waitFor(() => {
+      expect(result.current.isError).toBeTruthy();
     });
-
-    it('When logout is successful', async () => {
-        mockServer.use(logoutMock());
-
-        const { result } = renderHook(() => useLogout(), {
-            wrapper,
-        });
-
-        result.current.mutate(undefined);
-
-        await waitFor(() => {
-            expect(result.current.isSuccess).toBeTruthy();
-        });
-    });
-
-    it('When logout fails', async () => {
-        mockServer.use(logoutMock({ isError: true }));
-
-        const { result } = renderHook(() => useLogout(), {
-            wrapper,
-        });
-
-        result.current.mutate(undefined);
-
-        await waitFor(() => {
-            expect(result.current.isError).toBeTruthy();
-        });
-    });
+  });
 });

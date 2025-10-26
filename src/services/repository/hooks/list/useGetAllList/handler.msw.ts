@@ -10,19 +10,22 @@ import { ENDPOINTS } from 'services/repository/repositories/services.routes';
 const { GET } = mockMethods;
 
 const {
-    remotes: { baseUrl },
+  remotes: { baseUrl },
 } = environment;
 
-export const getAllListMock = ({ data, ...params }: MockRequest<Partial<{ items: ListItem[] }>> = {}) => {
-    return GET({
-        path: `${baseUrl}${ENDPOINTS.LIST}`,
-        resolver: ({ request }) => {
-            const mockData = generateMockData(2000);
-            return responseMiddleware({
-                params,
-                data: mockData,
-                req: request,
-            });
-        },
-    });
+export const getAllListMock = ({
+  data,
+  ...params
+}: MockRequest<Partial<{ items: ListItem[] }>> = {}) => {
+  return GET({
+    path: `${baseUrl}${ENDPOINTS.LIST}`,
+    resolver: ({ request }) => {
+      const mockData = generateMockData(2000);
+      return responseMiddleware({
+        params,
+        data: mockData,
+        req: request,
+      });
+    },
+  });
 };

@@ -3,8 +3,8 @@ import type { customActionsType } from 'services/repository/services/types';
 export type ExtractParams<E extends string> = E extends `${infer _}:${infer Param}/${infer Rest}`
   ? Param | ExtractParams<`/${Rest}`>
   : E extends `${infer _}:${infer Param}`
-  ? Param
-  : never;
+    ? Param
+    : never;
 
 export type RequiresParser<E extends string> = ExtractParams<E> extends never ? false : true;
 

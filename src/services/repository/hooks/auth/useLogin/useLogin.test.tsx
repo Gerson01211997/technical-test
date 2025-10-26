@@ -5,65 +5,65 @@ import { loginMock } from './handler.msw';
 import useLogin from '.';
 
 const queryClient = new QueryClient({
-    defaultOptions: {
-        mutations: {
-            retry: false,
-        },
-        queries: {
-            retry: false,
-        },
+  defaultOptions: {
+    mutations: {
+      retry: false,
     },
+    queries: {
+      retry: false,
+    },
+  },
 });
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 );
 
 describe('useLogin', () => {
-    beforeAll(() => {
-        mockServer.listen();
+  beforeAll(() => {
+    mockServer.listen();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    mockServer.reset();
+  });
+
+  afterAll(() => {
+    mockServer.close();
+  });
+
+  it('When login is successful', async () => {
+    mockServer.use(loginMock());
+
+    const { result } = renderHook(() => useLogin(), {
+      wrapper,
     });
 
-    afterEach(() => {
-        jest.clearAllMocks();
-        mockServer.reset();
+    result.current.mutate({
+      email: 'test@test.com',
+      password: '1234',
     });
 
-    afterAll(() => {
-        mockServer.close();
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBeTruthy();
+    });
+  });
+
+  it('When login fails', async () => {
+    mockServer.use(loginMock({ isError: true }));
+
+    const { result } = renderHook(() => useLogin(), {
+      wrapper,
     });
 
-    it('When login is successful', async () => {
-        mockServer.use(loginMock());
-
-        const { result } = renderHook(() => useLogin(), {
-            wrapper,
-        });
-
-        result.current.mutate({
-            email: 'test@test.com',
-            password: '1234',
-        });
-
-        await waitFor(() => {
-            expect(result.current.isSuccess).toBeTruthy();
-        });
+    result.current.mutate({
+      email: 'test@test.com',
+      password: '1234',
     });
 
-    it('When login fails', async () => {
-        mockServer.use(loginMock({ isError: true }));
-
-        const { result } = renderHook(() => useLogin(), {
-            wrapper,
-        });
-
-        result.current.mutate({
-            email: 'test@test.com',
-            password: '1234',
-        });
-
-        await waitFor(() => {
-            expect(result.current.isError).toBeTruthy();
-        });
+    await waitFor(() => {
+      expect(result.current.isError).toBeTruthy();
     });
+  });
 });

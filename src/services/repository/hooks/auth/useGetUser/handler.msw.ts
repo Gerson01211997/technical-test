@@ -10,18 +10,18 @@ import { environment } from 'services/config/environment';
 const { GET } = mockMethods;
 
 const {
-    remotes: { baseUrl },
+  remotes: { baseUrl },
 } = environment;
 
 export const getUserMock = ({ data, ...params }: MockRequest<Partial<User>> = {}) => {
-    return GET({
-        path: `${baseUrl}${ENDPOINTS.AUTH.USER}`,
-        resolver: ({ request }) => {
-            return responseMiddleware({
-                params,
-                data: USER_DATA,
-                req: request,
-            });
-        },
-    });
+  return GET({
+    path: `${baseUrl}${ENDPOINTS.AUTH.USER}`,
+    resolver: ({ request }) => {
+      return responseMiddleware({
+        params,
+        data: USER_DATA,
+        req: request,
+      });
+    },
+  });
 };

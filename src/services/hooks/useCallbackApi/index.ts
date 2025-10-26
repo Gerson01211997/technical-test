@@ -40,8 +40,7 @@ apiClient.interceptors.response.use(
 
     if (response?.status === 401 && !config.url?.includes(ROUTES.LOGIN)) {
       if (typeof window !== 'undefined') {
-        document.cookie =
-          `${TOKEN_KEY}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
+        document.cookie = `${TOKEN_KEY}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
         window.location.href = ROUTES.LOGIN;
       }
     }
@@ -51,13 +50,10 @@ apiClient.interceptors.response.use(
       status: response?.status,
       data: response?.data,
     });
-  }
+  },
 );
 
-export async function useCallbackApi<T>(
-  endpoint: string,
-  options: ApiOptions = {}
-): Promise<T> {
+export async function useCallbackApi<T>(endpoint: string, options: ApiOptions = {}): Promise<T> {
   const { method = 'GET', body, params } = options;
 
   const config: AxiosRequestConfig = {
@@ -73,7 +69,7 @@ export async function useCallbackApi<T>(
   } catch (error: any) {
     if (error.response) {
       const apiError: ApiError = new Error(
-        error.response.data?.message || 'Error en la llamada a la API'
+        error.response.data?.message || 'Error en la llamada a la API',
       );
       apiError.status = error.response.status;
       throw apiError;

@@ -9,7 +9,7 @@ import { className as Styles } from './constants';
 const ProductView: React.FC<ProductViewProps> = ({ price, name }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className={Styles.container}>
@@ -22,7 +22,11 @@ const ProductView: React.FC<ProductViewProps> = ({ price, name }) => {
         {t('list.viewItem.button')}
       </Button>
 
-      <ProductModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={t('list.viewItem.modal.title')}>
+      <ProductModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={t('list.viewItem.modal.title')}
+      >
         <div className={Styles.modalContent}>
           <p>{name}</p>
           <p>{price}</p>

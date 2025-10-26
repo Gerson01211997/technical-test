@@ -21,14 +21,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const isLoginPage = pathname === ROUTES.LOGIN;
 
-  const { data: user, isLoading, refetch } = useGetUser({
+  const {
+    data: user,
+    isLoading,
+    refetch,
+  } = useGetUser({
     enabled: !isLoginPage,
   });
 
   const { mutate } = useLogout({
     onSuccess: () => {
       window.location.href = ROUTES.LOGIN;
-    }
+    },
   });
 
   const logout = async () => mutate();
@@ -41,7 +45,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       logout,
       refetchUser: refetch,
     }),
-    [user, isLoading, refetch]
+    [user, isLoading, refetch],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

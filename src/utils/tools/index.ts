@@ -1,4 +1,4 @@
-import { TOKEN_INITIALS } from "app/api/login/constants";
+import { TOKEN_INITIALS } from 'app/api/login/constants';
 
 export const regexValidation = {
   numeric: /^\d+$/,

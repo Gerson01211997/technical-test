@@ -53,9 +53,7 @@ function LoginForm() {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             {t('login.title')}
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            {t('login.subtitle')}
-          </p>
+          <p className="mt-2 text-center text-sm text-gray-600">{t('login.subtitle')}</p>
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
@@ -80,9 +78,7 @@ function LoginForm() {
           </div>
 
           {errors.root && (
-            <div className="text-red-600 text-sm text-center">
-              {errors.root.message}
-            </div>
+            <div className="text-red-600 text-sm text-center">{errors.root.message}</div>
           )}
 
           <Button
@@ -105,6 +101,6 @@ function LoginForm() {
   );
 }
 
-LoginForm.displayName = "loginForm"
+LoginForm.displayName = 'loginForm';
 
 export default LoginForm;

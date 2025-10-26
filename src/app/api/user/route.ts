@@ -9,24 +9,23 @@ export async function GET(request: NextRequest) {
     if (!token) {
       return NextResponse.json(
         { error: MESSAGES_FROM_BACKEND.tokenRequired },
-        { status: RESPONSE_STATUSES.UNAUTHORIZED }
+        { status: RESPONSE_STATUSES.UNAUTHORIZED },
       );
     }
 
     if (!token.startsWith(TOKEN_INITIALS)) {
       return NextResponse.json(
         { error: MESSAGES_FROM_BACKEND.invalidToken },
-        { status: RESPONSE_STATUSES.UNAUTHORIZED }
+        { status: RESPONSE_STATUSES.UNAUTHORIZED },
       );
     }
 
     return NextResponse.json(USER_DATA, { status: RESPONSE_STATUSES.OK });
-
   } catch (error) {
     console.error('Error en GET /api/user:', error);
     return NextResponse.json(
       { error: MESSAGES_FROM_BACKEND.error },
-      { status: RESPONSE_STATUSES.INTERNAL_SERVER_ERROR }
+      { status: RESPONSE_STATUSES.INTERNAL_SERVER_ERROR },
     );
   }
 }

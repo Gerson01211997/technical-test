@@ -6,7 +6,7 @@ import { ROUTES } from 'utils/pageRoutes';
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const publicRoutes = [ROUTES.LOGIN];
-  const isPublic = publicRoutes.some(route => pathname.startsWith(route));
+  const isPublic = publicRoutes.some((route) => pathname.startsWith(route));
   const authCookie = request.cookies.get(TOKEN_KEY);
   if (!isPublic && !authCookie) {
     const loginUrl = new URL(ROUTES.LOGIN, request.url);
@@ -15,7 +15,6 @@ export function middleware(request: NextRequest) {
   }
 
   if (isPublic && authCookie) {
-
     return NextResponse.redirect(new URL(ROUTES.HOME, request.url));
   }
 

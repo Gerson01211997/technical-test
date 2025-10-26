@@ -5,53 +5,53 @@ import { getUserMock } from './handler.msw';
 import useGetUser from '.';
 
 const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            retry: false,
-        },
+  defaultOptions: {
+    queries: {
+      retry: false,
     },
+  },
 });
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 );
 
 describe('useGetUser', () => {
-    beforeAll(() => {
-        mockServer.listen();
+  beforeAll(() => {
+    mockServer.listen();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    mockServer.reset();
+  });
+
+  afterAll(() => {
+    mockServer.close();
+  });
+
+  it('When get user is successful', async () => {
+    mockServer.use(getUserMock());
+
+    const { result } = renderHook(() => useGetUser(), {
+      wrapper,
     });
 
-    afterEach(() => {
-        jest.clearAllMocks();
-        mockServer.reset();
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBeTruthy();
+      expect(result.current.data).toBeTruthy();
+    });
+  });
+
+  it('When get user fails', async () => {
+    mockServer.use(getUserMock({ isError: true }));
+
+    const { result } = renderHook(() => useGetUser(), {
+      wrapper,
     });
 
-    afterAll(() => {
-        mockServer.close();
+    await waitFor(() => {
+      expect(result.current.isError).toBeTruthy();
     });
-
-    it('When get user is successful', async () => {
-        mockServer.use(getUserMock());
-
-        const { result } = renderHook(() => useGetUser(), {
-            wrapper,
-        });
-
-        await waitFor(() => {
-            expect(result.current.isSuccess).toBeTruthy();
-            expect(result.current.data).toBeTruthy();
-        });
-    });
-
-    it('When get user fails', async () => {
-        mockServer.use(getUserMock({ isError: true }));
-
-        const { result } = renderHook(() => useGetUser(), {
-            wrapper,
-        });
-
-        await waitFor(() => {
-            expect(result.current.isError).toBeTruthy();
-        });
-    });
+  });
 });

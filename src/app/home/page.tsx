@@ -1,7 +1,7 @@
 'use client';
 
-import HomeComponent from 'modules/home'
+import HomeComponent from 'modules/home';
 
 export default function HomePage() {
-    return <HomeComponent/>
+  return <HomeComponent />;
 }

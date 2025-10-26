@@ -9,22 +9,22 @@ import { environment } from 'services/config/environment';
 const { POST } = mockMethods;
 
 const {
-    remotes: { baseUrl },
+  remotes: { baseUrl },
 } = environment;
 
 const loginResponse: LoginResponse = {
-    token: 'fake-token-test-123456789',
+  token: 'fake-token-test-123456789',
 };
 
 export const loginMock = ({ data, ...params }: MockRequest<Partial<LoginResponse>> = {}) => {
-    return POST({
-        path: `${baseUrl}${ENDPOINTS.AUTH.LOGIN}`,
-        resolver: ({ request }) => {
-            return responseMiddleware({
-                params,
-                data: loginResponse,
-                req: request,
-            });
-        },
-    });
+  return POST({
+    path: `${baseUrl}${ENDPOINTS.AUTH.LOGIN}`,
+    resolver: ({ request }) => {
+      return responseMiddleware({
+        params,
+        data: loginResponse,
+        req: request,
+      });
+    },
+  });
 };

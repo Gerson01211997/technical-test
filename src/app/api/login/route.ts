@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
           success: false,
           message: MESSAGES_FROM_BACKEND.required,
         },
-        { status: RESPONSE_STATUSES.NOT_FOUND }
+        { status: RESPONSE_STATUSES.NOT_FOUND },
       );
     }
 
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
           success: false,
           message: MESSAGES_FROM_BACKEND.unauthorized,
         },
-        { status: RESPONSE_STATUSES.UNAUTHORIZED }
+        { status: RESPONSE_STATUSES.UNAUTHORIZED },
       );
     }
 
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       name: TOKEN_KEY,
       value: TOKEN,
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', 
+      secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
       path: '/',
       maxAge: 60 * 60 * 24 * 7,
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
         success: false,
         message: MESSAGES_FROM_BACKEND.error,
       },
-      { status: RESPONSE_STATUSES.INTERNAL_SERVER_ERROR }
+      { status: RESPONSE_STATUSES.INTERNAL_SERVER_ERROR },
     );
   }
 }

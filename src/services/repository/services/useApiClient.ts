@@ -28,7 +28,13 @@ export function useApiClient() {
     return response;
   };
 
-  const post = async <T, D = Partial<T>>({ endpoint, data, onError, onSettled, onSuccess }: postProps<T, D>) => {
+  const post = async <T, D = Partial<T>>({
+    endpoint,
+    data,
+    onError,
+    onSettled,
+    onSuccess,
+  }: postProps<T, D>) => {
     let response;
     try {
       response = await callbackApi<T>(endpoint, {
@@ -46,6 +52,6 @@ export function useApiClient() {
 
   return {
     get,
-    post
+    post,
   };
 }
