@@ -1,13 +1,14 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import useLogin from '@repository/hooks/auth/useLogin';
 import Button from 'components/atoms/Button';
 import Input from 'components/atoms/Input';
 import { useTranslation } from 'hooks/useTranslation';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import useLogin from 'services/repository/hooks/auth/useLogin';
 import { ROUTES } from 'utils/pageRoutes';
+import { className as Styles } from './constants';
 import { loginSchema } from './schema';
 import type { LoginFormData } from './types';
 
@@ -47,17 +48,15 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {t('login.title')}
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">{t('login.subtitle')}</p>
+    <div className={Styles.root}>
+      <div className={Styles.container}>
+        <div className={Styles.header}>
+          <h2 className={Styles.title}>{t('login.title')}</h2>
+          <p className={Styles.subtitle}>{t('login.subtitle')}</p>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <div className="space-y-4">
+        <form className={Styles.form} onSubmit={handleSubmit(onSubmit)}>
+          <div className={Styles.formGroup}>
             <Input
               id="email"
               type="email"
@@ -77,9 +76,7 @@ function LoginForm() {
             />
           </div>
 
-          {errors.root && (
-            <div className="text-red-600 text-sm text-center">{errors.root.message}</div>
-          )}
+          {errors.root && <div className={Styles.error}>{errors.root.message}</div>}
 
           <Button
             type="submit"
@@ -92,7 +89,7 @@ function LoginForm() {
             {isLoading ? t('login.loading') : t('login.submit')}
           </Button>
 
-          <div className="text-center text-sm text-gray-600">
+          <div className={Styles.textInfo}>
             <p>{t('login.subtitle')}</p>
           </div>
         </form>

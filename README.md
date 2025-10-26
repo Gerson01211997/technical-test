@@ -2,9 +2,21 @@
 
 Aplicación React con TypeScript que implementa autenticación, lista virtualizada de 2000 elementos, y arquitectura escalable con patrón Repository.
 
+## 🚩 Aclaraciones Importantes
+
+- Para el login se podría haber usado un proveedor como **Auth0** (no implementado por simplicidad, pero es lo recomendado para entornos productivos o reales).
+- El correo y contraseña de prueba aparecen explícitamente en la pantalla de login para dar contexto y facilitar el acceso (test@test.com / 1234).
+- No se implementó la totalidad de los test, por lo que la cobertura no es del 100%.
+- La generación de token es manual y se realizó "a mano" sin usar librerías externas, para evitar cargas adicionales al proyecto (solo con fines de prueba técnica).
+- Se crearon APIs internas para manejo de autenticación y datos, simulando endpoints reales.
+- Se aplicó patrón **Repository** para los servicios de acceso a datos y lógica negocio.
+- La arquitectura del frontend es **modular** para grandes bloques/módulos, y se usó **arquitectura atómica** (atomic design) para componentes pequeños y reutilizables.
+
 ## 🚀 Características Implementadas
 
 - ✅ **Autenticación con fake-login** (test@test.com / 1234)
+- ✅ **Generación de token manual** (sin librería externa)
+- ✅ **APIs internas** para autenticación y manejo de datos
 - ✅ **Lista virtualizada** de 2000 elementos con @tanstack/react-virtual
 - ✅ **Axios** configurado con interceptores para envío automático de tokens
 - ✅ **Patrón Repository** para gestión de datos
@@ -45,6 +57,8 @@ npm run test:coverage
 npm run test:watch
 ```
 
+**Nota:** No se implementó el 100% de los tests requeridos. Existen áreas sin cobertura total, por enfoque en funcionalidades principales.
+
 ## 🎨 Linting y Formateo
 
 ```bash
@@ -64,28 +78,37 @@ npm run check
 
 ```
 src/
-├── app/                    # App Router de Next.js
-│   ├── login/             # Página de login (pública)
-│   ├── home/              # Página home (protegida)
-│   └── layout.tsx         # Layout con providers
-├── components/            # Componentes reutilizables
-│   ├── LoginForm.tsx      # Formulario de login
-│   ├── ProtectedRoute.tsx # HOC para proteger rutas
-│   └── VirtualizedList.tsx # Lista virtualizada
-├── contexts/              # Contextos de React
-│   └── AuthContext.tsx    # Contexto de autenticación
-├── stores/                # Estado global (Zustand)
-│   └── authStore.ts       # Store de autenticación
-├── services/              # Servicios y lógica de negocio
-│   ├── mockData.ts        # Datos mock (2000 elementos)
-│   ├── hooks/
-│   │   └── useCallbackApi/ # Cliente HTTP con Axios
-│   └── repository/        # Patrón Repository
-│       ├── hooks/
-│       │   └── list/      # Hooks para la lista
-│       └── repositories/
-│           └── ListRepository/ # Repository de lista
-└── types/                 # Definiciones de tipos TypeScript
+├── app/
+│   ├── api/
+│   │   ├── list/           # Endpoint interno para la lista
+│   │   ├── login/          # Endpoint interno para login
+│   │   ├── logout/         # Endpoint interno para logout
+│   │   └── user/           # Endpoint usuario
+│   ├── globals.css
+│   ├── home/               # Página Home (ruta protegida)
+│   ├── layout.tsx          # Layout con Providers
+│   └── login/              # Página Login (ruta pública)
+├── components/
+│   ├── atoms/              # Componentes atómicos (Button, Input, Modal)
+│   └── Header/             # Header principal
+├── hooks/                  # Hooks generales
+├── middleware.ts           # Middleware para protección de rutas
+├── modules/
+│   ├── home/               # Módulo de Home
+│   │   └── listView/       # Vistas y componentes de lista
+│   └── login/              # Módulo de Login
+├── providers/              # Providers de contexto
+├── services/
+│   ├── config/             # Configuraciones de entorno
+│   ├── hooks/              # Hooks de servicios (API)
+│   ├── mocks/              # Mocks para tests y desarrollo
+│   ├── repository/
+│   │   ├── hooks/          # Hooks de acceso a datos (auth, list)
+│   │   └── repositories/   # Repositorios de dominio (Auth, List, Base)
+│   └── services/           # Tipos y utilidades de servicios
+├── setupTests.ts           # Configuración de testing
+├── types/                  # Tipos globales TS
+└── utils/                  # Utilidades universales
 ```
 
 ### Patrón Repository
@@ -184,7 +207,7 @@ La lista de 2000 elementos está virtualizada usando **@tanstack/react-virtual**
 const virtualizer = useVirtualizer({
   count: items.length,
   getScrollElement: () => parentRef.current,
-  estimateSize: () => 80, // Altura estimada
+  estimateSize: () => 110, // Altura estimada
   overscan: 5, // Renderiza 5 items extra
 });
 ```
@@ -338,6 +361,7 @@ npm run test:watch   # Tests en modo watch
 - **Biome** - Linter y formatter
 - **Husky** - Git hooks
 - **lint-staged** - Pre-commit validation
+- **APIs internas**: (rutas Next.js app/api) para simular autenticación y listado
 
 ## 📱 Responsive Design
 
@@ -386,6 +410,5 @@ Fácil agregar:
 
 **Desarrollado como parte de una prueba técnica** 🚀
 
-## 📞 Contacto
+**Documentación guiada con una IA y supervizada por mi(Gerson Hoyos)** 🚀
 
-Para preguntas o mejoras, por favor abre un issue en el repositorio.
