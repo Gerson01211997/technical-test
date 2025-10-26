@@ -18,6 +18,10 @@
   "list": {
     "title": "Product list",
     "description": "Virtualized list with 2000 items",
+    "backendOptimization": {
+      "title": "Recommendation for Backend Calls",
+      "description": "I recommend optimizing backend calls by implementing caching on the frontend (for example, using React Query) to avoid unnecessary requests and improve user experience speed. I also suggest using pagination or lazy loading for endpoints that return large lists, and canceling or preventing duplicate requests when the user navigates quickly or switches views. This reduces resource consumption and improves the overall efficiency of the application."
+    },
     "justiication": {
       "title": "Why use virtualization?",
       "paragraph_1": {
