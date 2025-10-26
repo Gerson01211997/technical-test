@@ -11,6 +11,7 @@ Aplicación React con TypeScript que implementa autenticación, lista virtualiza
 - Se crearon APIs internas para manejo de autenticación y datos, simulando endpoints reales.
 - Se aplicó patrón **Repository** para los servicios de acceso a datos y lógica negocio.
 - La arquitectura del frontend es **modular** para grandes bloques/módulos, y se usó **arquitectura atómica** (atomic design) para componentes pequeños y reutilizables.
+- Para las traducciones utilicé un hook personalizado para no cargar la aplicación pero lo ideal sería utilizar i18n en routes pages o next-intl en app pages de nextjs
 
 ## 🚀 Características Implementadas
 
