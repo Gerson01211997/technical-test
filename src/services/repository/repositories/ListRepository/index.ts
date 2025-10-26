@@ -1,6 +1,6 @@
-import type { ListItem } from 'services/repository/hooks/list/__mocks__';
-import { ENDPOINTS } from '../services.routes';
-import { useBaseRepository } from '../BaseRepository';
+import type { ListItem } from '@repository/hooks/list/__mocks__';
+import { useBaseRepository } from '@repository/repositories/BaseRepository';
+import { ENDPOINTS } from '@repository/repositories/services.routes';
 
 export function useListRepository() {
   const url = ENDPOINTS.LIST;

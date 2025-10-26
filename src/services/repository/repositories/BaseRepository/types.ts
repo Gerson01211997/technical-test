@@ -1,4 +1,4 @@
-import type { customActionsType } from 'services/repository/services/types';
+import type { customActionsType } from '@repository/services/types';
 
 export type ExtractParams<E extends string> = E extends `${infer _}:${infer Param}/${infer Rest}`
   ? Param | ExtractParams<`/${Rest}`>

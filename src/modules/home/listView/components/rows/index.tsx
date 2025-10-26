@@ -1,6 +1,6 @@
+import ProductView from '@home/listView/components/ProductView';
+import type { ListItem } from '@repository/hooks/list/__mocks__';
 import Image from 'next/image';
-import { ListItem } from '@repository/hooks/list/__mocks__';
-import ProductView from '../ProductView';
 import { className as Styles } from './constants';
 
 function ListItemComponent({ item }: { item: ListItem }) {

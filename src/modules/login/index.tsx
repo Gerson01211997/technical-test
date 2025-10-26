@@ -1,15 +1,15 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Button from 'components/atoms/Button';
+import Input from 'components/atoms/Input';
+import { useTranslation } from 'hooks/useTranslation';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Input from '../../components/atoms/Input';
-import Button from '../../components/atoms/Button';
-import { useTranslation } from '../../hooks/useTranslation';
-import { ROUTES } from 'utils/pageRoutes';
+import { useForm } from 'react-hook-form';
 import useLogin from 'services/repository/hooks/auth/useLogin';
+import { ROUTES } from 'utils/pageRoutes';
 import { loginSchema } from './schema';
-import { LoginFormData } from './types';
+import type { LoginFormData } from './types';
 
 function LoginForm() {
   const { t } = useTranslation();

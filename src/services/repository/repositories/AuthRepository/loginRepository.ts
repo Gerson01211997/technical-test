@@ -1,6 +1,6 @@
-import { ENDPOINTS } from '../services.routes';
-import { useBaseRepository } from '../BaseRepository';
-import { LoginCredentials, LoginResponse } from 'services/repository/hooks/auth/types';
+import type { LoginCredentials, LoginResponse } from '@repository/hooks/auth/types';
+import { useBaseRepository } from '@repository/repositories/BaseRepository';
+import { ENDPOINTS } from '@repository/repositories/services.routes';
 
 export function useAuthRepository() {
   const url = ENDPOINTS.AUTH.LOGIN;

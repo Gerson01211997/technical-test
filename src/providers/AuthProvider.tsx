@@ -1,11 +1,11 @@
 'use client';
 
-import { createContext, useContext, ReactNode, useMemo } from 'react';
-import useGetUser from 'services/repository/hooks/auth/useGetUser';
-import type { User } from 'services/repository/hooks/auth/types';
+import type { User } from '@repository/hooks/auth/types';
+import useGetUser from '@repository/hooks/auth/useGetUser';
+import useLogout from '@repository/hooks/auth/useLogout';
 import { usePathname } from 'next/navigation';
+import { type ReactNode, createContext, useContext, useMemo } from 'react';
 import { ROUTES } from 'utils/pageRoutes';
-import useLogout from 'services/repository/hooks/auth/useLogout';
 
 interface AuthContextType {
   user: User | null;
@@ -35,17 +35,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     },
   });
 
-  const logout = async () => mutate();
-
   const value = useMemo(
     () => ({
       user: user ?? null,
       isAuthenticated: !!user,
       isLoading,
-      logout,
+      logout: async () => mutate(),
       refetchUser: refetch,
     }),
-    [user, isLoading, refetch],
+    [user, isLoading, refetch, mutate],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

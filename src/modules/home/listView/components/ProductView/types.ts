@@ -1,3 +1,4 @@
-import type { ProductDetail } from '@repository/hooks/products/types';
-
-export type ProductViewProps = Pick<ProductDetail, 'price' | 'name'>;
+export type ProductViewProps = {
+  price: number;
+  name: string;
+};

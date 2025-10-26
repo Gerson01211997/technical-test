@@ -22,7 +22,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "services/*": ["services/*"],
-      "@products/*": ["modules/products/*"],
+      "@home/*": ["modules/home/*"],
+      "@login/*": ["modules/login/*"],
       "@repository/*": ["services/repository/*"]
     },
     "types": ["jest", "@testing-library/jest-dom"]

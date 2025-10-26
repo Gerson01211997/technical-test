@@ -1,5 +1,5 @@
-import { ENDPOINTS } from '../services.routes';
-import { useBaseRepository } from '../BaseRepository';
+import { useBaseRepository } from '@repository/repositories/BaseRepository';
+import { ENDPOINTS } from '@repository/repositories/services.routes';
 
 export interface LogoutResponse {
   success: boolean;
