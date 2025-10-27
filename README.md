@@ -386,13 +386,6 @@ La aplicación es completamente responsive:
 - Componentes reutilizables
 - Hooks personalizados
 
-### Extensibilidad Futura
-Fácil agregar:
-- Nuevos módulos públicos (ej: recuperar contraseña)
-- Nuevos módulos privados (ej: perfil de usuario)
-- Nuevas fuentes de datos en Repository
-- Nuevas funcionalidades sin romper código existente
-
 ## 👨‍💻 Desarrollo
 
 ### Convenciones de Código
@@ -406,10 +399,4 @@ Fácil agregar:
 2. Biome verifica el código
 3. Tests con 80% coverage deben pasar
 4. Solo entonces se permite el commit
-
----
-
-**Desarrollado como parte de una prueba técnica** 🚀
-
-**Documentación guiada con una IA y supervizada por mi(Gerson Hoyos)** 🚀
 
