@@ -24,7 +24,8 @@
       "services/*": ["services/*"],
       "@home/*": ["modules/home/*"],
       "@login/*": ["modules/login/*"],
-      "@repository/*": ["services/repository/*"]
+      "@repository/*": ["services/repository/*"],
+      "@hooks/*": ["hooks/*"]
     },
     "types": ["jest", "@testing-library/jest-dom"]
   },

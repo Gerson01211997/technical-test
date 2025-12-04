@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const listResponse = generateMockData(2000);
+    const listResponse = generateMockData(10000);
     return NextResponse.json(listResponse, { status: RESPONSE_STATUSES.OK });
   } catch (error) {
     console.error('Error en GET /api/user:', error);

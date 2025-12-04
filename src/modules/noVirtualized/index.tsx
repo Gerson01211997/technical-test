@@ -3,7 +3,7 @@ import { className as Styles } from './constants';
 import VirtualizedList from './listView';
 import useGetCacheData from 'context/reactQuery/cacheContext';
 import { ListItem } from '@repository/hooks/list/__mocks__';
-function HomePage() {
+function NotVirtualized() {
   const { data: items, isLoading, isError } = useGetCacheData<ListItem[]>();
   const { t } = useTranslation();
 
@@ -50,6 +50,6 @@ function HomePage() {
   );
 }
 
-HomePage.displayName = 'home';
+NotVirtualized.displayName = 'NotVirtualized';
 
-export default HomePage;
+export default NotVirtualized;

@@ -1,11 +1,12 @@
-import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useListRepository } from '@repository/repositories/ListRepository';
 import type { ListItem } from 'services/repository/hooks/list/__mocks__';
+import { CustomQueryOptions } from 'services/repository/services/types';
 
 export const GET_ALL_LIST_QUERY_KEY = 'get-all-list';
 
-export default function useGetAllList(options?: UseQueryOptions<ListItem[]>) {
-  const queryKey = options?.queryKey ?? GET_ALL_LIST_QUERY_KEY;
+export default function useGetAllList(options?: CustomQueryOptions<ListItem[]>) {
+  const queryKey = GET_ALL_LIST_QUERY_KEY;
   const { getAll } = useListRepository();
 
   return useQuery<ListItem[]>({
